@@ -1,0 +1,13 @@
+# portsleuth configuration (rename to scan.toml to activate).
+#
+# These override the built-in defaults. Command-line flags still take
+# precedence over anything set here. Looked up in the working directory,
+# or at the path in the PORTSLEUTH_CONFIG environment variable.
+
+[defaults]
+target = "127.0.0.1"
+timeout = 0.75
+concurrency = 100
+rate = 200.0
+max_hosts = 256
+audit_file = ".portsleuth/audit.jsonl"
