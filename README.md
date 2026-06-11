@@ -38,7 +38,7 @@ python -m pip install -e ".[tls]"
 portsleuth scan 127.0.0.1 --ports 8000-8010
 portsleuth scan 127.0.0.1 --ports 80,443,8080 --format json
 portsleuth scan 127.0.0.1 --ports 9090 --probe
-portsleuth probe http 127.0.0.1 --port 8080 --verbose
+portsleuth probe http 127.0.0.1 --port 8080 --show-preview
 portsleuth probe tls example.com --port 443 --authorized --reason "owned test target"
 portsleuth discover 127.0.0.1 --authorized --reason "lab sweep"
 portsleuth lab serve-tcp --port 9090 --banner "portsleuth fixture"
@@ -64,7 +64,8 @@ Meaningful exit codes: `0` success, `1` general error, `2` invalid usage,
 technique/platform, `6` insufficient privileges (`doctor --require-raw` when
 raw sockets are unavailable), `7` partial scan failure (error, permission denied,
 unknown, or unreachable port results), `8` lab startup failure,
-`130` interrupted (partial results are written when available).
+`130` interrupted (partial results are written when available; exit `7` instead when
+partial results include error, permission denied, unknown, or unreachable states).
 
 ## Configuration
 
@@ -121,7 +122,7 @@ portsleuth scan 192.168.1.10 --ports 22,80,443 --authorized --reason "home lab"
 | Area | Status |
 |------|--------|
 | TCP connect scanner, asyncio engine, rate limit | Implemented |
-| Authorization gate, audit JSONL (with file locking) | Implemented |
+| Authorization gate, audit JSONL (Unix fcntl lock; in-process lock on Windows) | Implemented |
 | HTTP/TLS probing, WSGI lab, TCP-ping discovery | Implemented |
 | Packet header pack/unpack evidence (`portsleuth packet demo`) | Implemented |
 | Raw SYN scan, UDP scan, ICMP sweep | Planned (capability-gated; see ADRs) |
@@ -153,7 +154,7 @@ portsleuth lab serve-wsgi --port 8080
 Terminal 4:
 
 ```powershell
-portsleuth probe http 127.0.0.1 --port 8080 --verbose
+portsleuth probe http 127.0.0.1 --port 8080 --show-preview
 portsleuth benchmark 127.0.0.1 --ports 1-100
 ```
 
@@ -166,7 +167,9 @@ Raw packet behavior differs by OS. `portsleuth doctor` reports whether raw ICMP 
 ## Development
 
 ```powershell
+python -m pip install -r requirements-dev.txt
 python -m pytest
+python -m ruff check src tests
 ```
 
 The integration tests only use loopback fixtures and do not scan public hosts.
@@ -177,10 +180,10 @@ Privileged raw-socket tests live in `tests/privileged/` and only run when
 
 A production scanner would need stronger IPv6 support, richer fingerprinting, resumable jobs, durable report storage, RBAC, signed scan policies, enterprise allowlists, deeper UDP retry policy, robust cancellation, and systematic comparison against mature tools in a controlled lab.
 
-The audit log appends newline-delimited JSON with cross-process file locking on
-supported platforms, which is adequate for single-operator local use; a production
-build would use a proper append-with-locking strategy or a database so concurrent
-scans cannot interleave records.
+The audit log appends newline-delimited JSON with `fcntl` file locking on Unix and
+an in-process lock on Windows, which is adequate for single-operator local use; a
+production build would use a database or centralized logging so concurrent scans
+on every platform are serialized safely.
 
 ## License
 
