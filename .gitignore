@@ -1,0 +1,17 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+dist/
+build/
+*.egg-info/
+.portsleuth/
+
+# Local config (ship scan.toml.example instead)
+scan.toml
+
+# Capstone planning notes (local only)
+port_scanner_capstone_plan.txt
+port_scanner_capstone_revised_scope.txt
+port_scanner_capstone_scope_v2.txt
+
