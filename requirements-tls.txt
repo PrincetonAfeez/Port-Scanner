@@ -1,0 +1,3 @@
+# Optional TLS certificate field extraction for `probe tls --insecure`
+# (matches pyproject [project.optional-dependencies.tls]).
+cryptography>=42
