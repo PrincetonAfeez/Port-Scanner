@@ -1,0 +1,3 @@
+# portsleuth core — no third-party runtime dependencies (stdlib only).
+# Install the package in editable mode:
+-e .
