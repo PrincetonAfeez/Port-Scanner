@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "portsleuth"
+version = "0.1.0"
+description = "Safe educational Python CLI port scanner for a networking capstone"
+readme = "README.md"
+requires-python = ">=3.11"
+authors = [{ name = "portsleuth capstone" }]
+license = { file = "LICENSE" }
+classifiers = ["License :: OSI Approved :: MIT License"]
+dependencies = []
+
+[project.optional-dependencies]
+# Enables certificate field extraction when probing TLS without verification
+# (e.g. self-signed lab targets via `probe tls --insecure`). The verified path
+# and the rest of the scanner remain dependency-free.
+tls = ["cryptography>=42"]
+dev = ["pytest>=8"]
+
+[project.scripts]
+portsleuth = "portsleuth.cli.main:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+
