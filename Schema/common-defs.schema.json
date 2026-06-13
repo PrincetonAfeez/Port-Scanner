@@ -1,0 +1,328 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "portsleuth Common Schema Definitions",
+  "description": "Reusable definitions for portsleuth JSON contracts.",
+  "$defs": {
+    "port": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 65535
+    },
+    "nullableString": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "nullableNumber": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "scanState": {
+      "type": "string",
+      "enum": [
+        "open",
+        "closed",
+        "filtered",
+        "unknown",
+        "unreachable",
+        "dns_error",
+        "permission_denied",
+        "unsupported",
+        "error",
+        "open_filtered"
+      ]
+    },
+    "probeState": {
+      "type": "string",
+      "enum": [
+        "http_detected",
+        "possible_https",
+        "non_http",
+        "no_response",
+        "malformed_http",
+        "error"
+      ]
+    },
+    "scanTechnique": {
+      "type": "string",
+      "enum": [
+        "connect",
+        "syn",
+        "udp"
+      ]
+    },
+    "auditTechnique": {
+      "type": "string",
+      "enum": [
+        "connect",
+        "syn",
+        "udp",
+        "tcp-ping",
+        "probe-http",
+        "probe-tls",
+        "probe-banner",
+        "benchmark"
+      ]
+    },
+    "scanOptions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "timeout",
+        "concurrency",
+        "rate_limit",
+        "technique"
+      ],
+      "properties": {
+        "timeout": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "concurrency": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "rate_limit": {
+          "type": "number",
+          "minimum": 0
+        },
+        "technique": {
+          "$ref": "#/$defs/scanTechnique"
+        },
+        "probe": {
+          "type": "boolean"
+        },
+        "probe_insecure": {
+          "type": "boolean"
+        }
+      }
+    },
+    "authorizationSummary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "authorized",
+        "reason",
+        "requires_audit",
+        "categories"
+      ],
+      "properties": {
+        "authorized": {
+          "type": "boolean"
+        },
+        "reason": {
+          "$ref": "#/$defs/nullableString"
+        },
+        "requires_audit": {
+          "type": "boolean"
+        },
+        "categories": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "httpProbeResult": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "state",
+        "method",
+        "path"
+      ],
+      "properties": {
+        "state": {
+          "$ref": "#/$defs/probeState"
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "HEAD",
+            "GET"
+          ]
+        },
+        "path": {
+          "type": "string"
+        },
+        "http_version": {
+          "$ref": "#/$defs/nullableString"
+        },
+        "status_code": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 100,
+          "maximum": 999
+        },
+        "reason": {
+          "$ref": "#/$defs/nullableString"
+        },
+        "headers": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "server": {
+          "$ref": "#/$defs/nullableString"
+        },
+        "location": {
+          "$ref": "#/$defs/nullableString"
+        },
+        "raw_preview": {
+          "$ref": "#/$defs/nullableString"
+        },
+        "error": {
+          "$ref": "#/$defs/nullableString"
+        }
+      }
+    },
+    "tlsProbeResult": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "ok",
+        "verified"
+      ],
+      "properties": {
+        "ok": {
+          "type": "boolean"
+        },
+        "protocol": {
+          "$ref": "#/$defs/nullableString"
+        },
+        "cipher": {
+          "$ref": "#/$defs/nullableString"
+        },
+        "subject": {
+          "$ref": "#/$defs/nullableString"
+        },
+        "issuer": {
+          "$ref": "#/$defs/nullableString"
+        },
+        "san": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "not_before": {
+          "$ref": "#/$defs/nullableString"
+        },
+        "not_after": {
+          "$ref": "#/$defs/nullableString"
+        },
+        "verified": {
+          "type": "boolean"
+        },
+        "error": {
+          "$ref": "#/$defs/nullableString"
+        }
+      }
+    },
+    "portResult": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "target",
+        "address",
+        "port",
+        "state",
+        "technique"
+      ],
+      "properties": {
+        "target": {
+          "type": "string"
+        },
+        "address": {
+          "type": "string"
+        },
+        "port": {
+          "$ref": "#/$defs/port"
+        },
+        "state": {
+          "$ref": "#/$defs/scanState"
+        },
+        "technique": {
+          "$ref": "#/$defs/scanTechnique"
+        },
+        "service": {
+          "$ref": "#/$defs/nullableString"
+        },
+        "service_confidence": {
+          "$ref": "#/$defs/nullableString"
+        },
+        "latency_ms": {
+          "$ref": "#/$defs/nullableNumber"
+        },
+        "reason": {
+          "$ref": "#/$defs/nullableString"
+        },
+        "banner": {
+          "$ref": "#/$defs/nullableString"
+        },
+        "http": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/httpProbeResult"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "tls": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/tlsProbeResult"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "error": {
+          "$ref": "#/$defs/nullableString"
+        }
+      }
+    },
+    "resolvedTarget": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "expression",
+        "address",
+        "hostname",
+        "family"
+      ],
+      "properties": {
+        "expression": {
+          "type": "string"
+        },
+        "address": {
+          "type": "string"
+        },
+        "hostname": {
+          "$ref": "#/$defs/nullableString"
+        },
+        "family": {
+          "type": "string",
+          "enum": [
+            "IPv4",
+            "IPv6"
+          ]
+        }
+      }
+    }
+  }
+}

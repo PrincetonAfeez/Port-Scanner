@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "portsleuth Benchmark JSON Output",
+  "description": "Array emitted by `portsleuth benchmark ... --format json`.",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+      "technique",
+      "ports",
+      "concurrency",
+      "timeout",
+      "duration_ms",
+      "open",
+      "closed",
+      "filtered",
+      "unreachable",
+      "permission_denied",
+      "unknown",
+      "error",
+      "other"
+    ],
+    "properties": {
+      "technique": {
+        "type": "string"
+      },
+      "ports": {
+        "type": "integer",
+        "minimum": 0
+      },
+      "concurrency": {
+        "type": "integer",
+        "minimum": 1
+      },
+      "timeout": {
+        "type": "number",
+        "exclusiveMinimum": 0
+      },
+      "duration_ms": {
+        "type": "number",
+        "minimum": 0
+      },
+      "open": {
+        "type": "integer",
+        "minimum": 0
+      },
+      "closed": {
+        "type": "integer",
+        "minimum": 0
+      },
+      "filtered": {
+        "type": "integer",
+        "minimum": 0
+      },
+      "unreachable": {
+        "type": "integer",
+        "minimum": 0
+      },
+      "permission_denied": {
+        "type": "integer",
+        "minimum": 0
+      },
+      "unknown": {
+        "type": "integer",
+        "minimum": 0
+      },
+      "error": {
+        "type": "integer",
+        "minimum": 0
+      },
+      "other": {
+        "type": "integer",
+        "minimum": 0
+      }
+    }
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "portsleuth Config JSON Output",
+  "description": "JSON emitted by `portsleuth config --format json`.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "config_source",
+    "target",
+    "timeout",
+    "concurrency",
+    "rate_limit",
+    "audit_file",
+    "max_cidr_hosts",
+    "curated_common_ports"
+  ],
+  "properties": {
+    "config_source": {
+      "type": "string"
+    },
+    "target": {
+      "type": "string"
+    },
+    "timeout": {
+      "type": "number",
+      "exclusiveMinimum": 0
+    },
+    "concurrency": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "rate_limit": {
+      "type": "number",
+      "minimum": 0
+    },
+    "audit_file": {
+      "type": "string"
+    },
+    "max_cidr_hosts": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "curated_common_ports": {
+      "type": "integer",
+      "minimum": 0
+    }
+  }
+}

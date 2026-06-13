@@ -1,0 +1,68 @@
+{
+  "project": "portsleuth",
+  "repository": "https://github.com/PrincetonAfeez/Port-Scanner.git",
+  "draft": "https://json-schema.org/draft/2020-12/schema",
+  "purpose": "Lightweight schemas for portsleuth CLI JSON outputs, parsed config, and audit JSONL records.",
+  "schemas": [
+    {
+      "file": "common-defs.schema.json",
+      "contract": "shared definitions"
+    },
+    {
+      "file": "scan-report.schema.json",
+      "contract": "scan --format json / scan --output JSON report"
+    },
+    {
+      "file": "port-result.schema.json",
+      "contract": "single scan result row"
+    },
+    {
+      "file": "http-probe-result.schema.json",
+      "contract": "single HTTP probe payload"
+    },
+    {
+      "file": "http-probe-output.schema.json",
+      "contract": "probe http --format json"
+    },
+    {
+      "file": "tls-probe-result.schema.json",
+      "contract": "single TLS probe payload"
+    },
+    {
+      "file": "tls-probe-output.schema.json",
+      "contract": "probe tls --format json"
+    },
+    {
+      "file": "banner-probe-output.schema.json",
+      "contract": "probe banner --format json"
+    },
+    {
+      "file": "discovery-output.schema.json",
+      "contract": "discover --format json"
+    },
+    {
+      "file": "audit-record.schema.json",
+      "contract": "one .portsleuth/audit.jsonl record"
+    },
+    {
+      "file": "doctor-report.schema.json",
+      "contract": "doctor --format json"
+    },
+    {
+      "file": "benchmark-output.schema.json",
+      "contract": "benchmark --format json"
+    },
+    {
+      "file": "config-file.schema.json",
+      "contract": "parsed scan.toml"
+    },
+    {
+      "file": "config-output.schema.json",
+      "contract": "config --format json"
+    },
+    {
+      "file": "authorization-summary.schema.json",
+      "contract": "authorization summary object"
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "os": "Linux 6.8.0",
+  "python": "3.11.9",
+  "is_admin_or_root": false,
+  "raw_icmp_available": false,
+  "raw_tcp_socket_creatable": false,
+  "raw_tcp_syn_likely_supported": false,
+  "packet_capture_tools": [
+    "tcpdump"
+  ],
+  "fixture_ports": [
+    {
+      "port": 8080,
+      "label": "WSGI HTTP lab",
+      "status": "available"
+    },
+    {
+      "port": 9090,
+      "label": "TCP banner lab",
+      "status": "available"
+    }
+  ],
+  "default_timeout": 0.75,
+  "default_concurrency": 100,
+  "default_rate_limit": 200.0,
+  "tls_cert_fields_available": false,
+  "notes": [
+    "Raw packet features generally require administrator/root privileges."
+  ]
+}

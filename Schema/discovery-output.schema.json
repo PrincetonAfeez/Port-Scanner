@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "portsleuth Discovery JSON Output",
+  "description": "Array emitted by `portsleuth discover ... --format json`.",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+      "target",
+      "address",
+      "is_up",
+      "open_port",
+      "latency_ms",
+      "reason"
+    ],
+    "properties": {
+      "target": {
+        "type": "string"
+      },
+      "address": {
+        "type": "string"
+      },
+      "is_up": {
+        "type": "boolean"
+      },
+      "open_port": {
+        "anyOf": [
+          {
+            "$ref": "common-defs.schema.json#/$defs/port"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "latency_ms": {
+        "$ref": "common-defs.schema.json#/$defs/nullableNumber"
+      },
+      "reason": {
+        "type": "string"
+      }
+    }
+  }
+}

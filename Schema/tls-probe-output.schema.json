@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "portsleuth TLS Probe JSON Output",
+  "description": "Array emitted by `portsleuth probe tls ... --format json`.",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+      "target",
+      "address",
+      "ok",
+      "verified"
+    ],
+    "properties": {
+      "ok": {
+        "type": "boolean"
+      },
+      "protocol": {
+        "$ref": "common-defs.schema.json#/$defs/nullableString"
+      },
+      "cipher": {
+        "$ref": "common-defs.schema.json#/$defs/nullableString"
+      },
+      "subject": {
+        "$ref": "common-defs.schema.json#/$defs/nullableString"
+      },
+      "issuer": {
+        "$ref": "common-defs.schema.json#/$defs/nullableString"
+      },
+      "san": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "not_before": {
+        "$ref": "common-defs.schema.json#/$defs/nullableString"
+      },
+      "not_after": {
+        "$ref": "common-defs.schema.json#/$defs/nullableString"
+      },
+      "verified": {
+        "type": "boolean"
+      },
+      "error": {
+        "$ref": "common-defs.schema.json#/$defs/nullableString"
+      },
+      "target": {
+        "type": "string"
+      },
+      "address": {
+        "type": "string"
+      }
+    }
+  }
+}

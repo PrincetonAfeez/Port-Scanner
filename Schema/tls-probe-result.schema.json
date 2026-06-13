@@ -1,0 +1,6 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "portsleuth TLS Probe Result",
+  "description": "One TLS probe payload, without batch target/address wrapper.",
+  "$ref": "common-defs.schema.json#/$defs/tlsProbeResult"
+}

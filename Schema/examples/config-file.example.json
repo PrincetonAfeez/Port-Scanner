@@ -1,0 +1,10 @@
+{
+  "defaults": {
+    "target": "127.0.0.1",
+    "timeout": 0.75,
+    "concurrency": 100,
+    "rate": 200.0,
+    "audit_file": ".portsleuth/audit.jsonl",
+    "max_hosts": 256
+  }
+}

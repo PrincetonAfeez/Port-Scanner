@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "portsleuth Audit JSONL Record",
+  "description": "One newline-delimited JSON object written to `.portsleuth/audit.jsonl` for authorized/audited operations.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "timestamp",
+    "target_expression",
+    "resolved_targets",
+    "ports",
+    "technique",
+    "authorized",
+    "reason",
+    "rate_limit",
+    "concurrency",
+    "timeout"
+  ],
+  "properties": {
+    "timestamp": {
+      "$ref": "common-defs.schema.json#/$defs/timestamp"
+    },
+    "target_expression": {
+      "type": "string"
+    },
+    "resolved_targets": {
+      "type": "array",
+      "items": {
+        "$ref": "common-defs.schema.json#/$defs/resolvedTarget"
+      }
+    },
+    "ports": {
+      "type": "array",
+      "items": {
+        "$ref": "common-defs.schema.json#/$defs/port"
+      }
+    },
+    "technique": {
+      "$ref": "common-defs.schema.json#/$defs/auditTechnique"
+    },
+    "authorized": {
+      "type": "boolean"
+    },
+    "reason": {
+      "$ref": "common-defs.schema.json#/$defs/nullableString"
+    },
+    "rate_limit": {
+      "type": "number",
+      "minimum": 0
+    },
+    "concurrency": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "timeout": {
+      "type": "number",
+      "exclusiveMinimum": 0
+    },
+    "probe": {
+      "type": "boolean"
+    },
+    "probe_insecure": {
+      "type": "boolean"
+    }
+  }
+}

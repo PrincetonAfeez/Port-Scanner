@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "portsleuth Parsed scan.toml Config",
+  "description": "Schema for the parsed TOML object loaded from scan.toml or PORTSLEUTH_CONFIG. Validate after parsing TOML to JSON-like data.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "target": {
+      "type": "string",
+      "minLength": 1
+    },
+    "timeout": {
+      "type": "number",
+      "exclusiveMinimum": 0
+    },
+    "concurrency": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "rate": {
+      "type": "number",
+      "minimum": 0
+    },
+    "rate_limit": {
+      "type": "number",
+      "minimum": 0
+    },
+    "audit_file": {
+      "type": "string",
+      "minLength": 1
+    },
+    "max_hosts": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "max_cidr_hosts": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "defaults": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "target": {
+          "type": "string",
+          "minLength": 1
+        },
+        "timeout": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "concurrency": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "rate": {
+          "type": "number",
+          "minimum": 0
+        },
+        "rate_limit": {
+          "type": "number",
+          "minimum": 0
+        },
+        "audit_file": {
+          "type": "string",
+          "minLength": 1
+        },
+        "max_hosts": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "max_cidr_hosts": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    }
+  }
+}

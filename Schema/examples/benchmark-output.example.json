@@ -1,0 +1,17 @@
+[
+  {
+    "technique": "sync",
+    "ports": 3,
+    "concurrency": 1,
+    "timeout": 0.75,
+    "duration_ms": 5.5,
+    "open": 1,
+    "closed": 2,
+    "filtered": 0,
+    "unreachable": 0,
+    "permission_denied": 0,
+    "unknown": 0,
+    "error": 0,
+    "other": 0
+  }
+]

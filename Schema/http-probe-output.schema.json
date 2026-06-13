@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "portsleuth HTTP Probe JSON Output",
+  "description": "Array emitted by `portsleuth probe http ... --format json`.",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+      "target",
+      "address",
+      "state",
+      "method",
+      "path"
+    ],
+    "properties": {
+      "state": {
+        "$ref": "common-defs.schema.json#/$defs/probeState"
+      },
+      "method": {
+        "type": "string",
+        "enum": [
+          "HEAD",
+          "GET"
+        ]
+      },
+      "path": {
+        "type": "string"
+      },
+      "http_version": {
+        "$ref": "common-defs.schema.json#/$defs/nullableString"
+      },
+      "status_code": {
+        "type": [
+          "integer",
+          "null"
+        ],
+        "minimum": 100,
+        "maximum": 999
+      },
+      "reason": {
+        "$ref": "common-defs.schema.json#/$defs/nullableString"
+      },
+      "headers": {
+        "type": "object",
+        "additionalProperties": {
+          "type": "string"
+        }
+      },
+      "server": {
+        "$ref": "common-defs.schema.json#/$defs/nullableString"
+      },
+      "location": {
+        "$ref": "common-defs.schema.json#/$defs/nullableString"
+      },
+      "raw_preview": {
+        "$ref": "common-defs.schema.json#/$defs/nullableString"
+      },
+      "error": {
+        "$ref": "common-defs.schema.json#/$defs/nullableString"
+      },
+      "target": {
+        "type": "string"
+      },
+      "address": {
+        "type": "string"
+      }
+    }
+  }
+}

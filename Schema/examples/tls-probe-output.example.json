@@ -1,0 +1,19 @@
+[
+  {
+    "target": "example.com",
+    "address": "93.184.216.34",
+    "ok": true,
+    "protocol": "TLSv1.3",
+    "cipher": "TLS_AES_256_GCM_SHA384",
+    "subject": "example.com",
+    "issuer": "Example CA",
+    "san": [
+      "example.com",
+      "www.example.com"
+    ],
+    "not_before": "2026-01-01T00:00:00Z",
+    "not_after": "2026-12-31T23:59:59Z",
+    "verified": true,
+    "error": null
+  }
+]

@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "portsleuth Scan Report",
+  "description": "JSON emitted by `portsleuth scan --format json` or saved with `--output`.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "target_expression",
+    "ports",
+    "options",
+    "started_at",
+    "finished_at",
+    "duration_ms",
+    "results"
+  ],
+  "properties": {
+    "target_expression": {
+      "type": "string"
+    },
+    "ports": {
+      "type": "array",
+      "items": {
+        "$ref": "common-defs.schema.json#/$defs/port"
+      }
+    },
+    "options": {
+      "$ref": "common-defs.schema.json#/$defs/scanOptions"
+    },
+    "authorization_summary": {
+      "$ref": "common-defs.schema.json#/$defs/authorizationSummary"
+    },
+    "started_at": {
+      "$ref": "common-defs.schema.json#/$defs/timestamp"
+    },
+    "finished_at": {
+      "anyOf": [
+        {
+          "$ref": "common-defs.schema.json#/$defs/timestamp"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "duration_ms": {
+      "$ref": "common-defs.schema.json#/$defs/nullableNumber"
+    },
+    "results": {
+      "type": "array",
+      "items": {
+        "$ref": "common-defs.schema.json#/$defs/portResult"
+      }
+    }
+  }
+}

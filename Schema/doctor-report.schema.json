@@ -1,0 +1,92 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "portsleuth Doctor Capability Report",
+  "description": "JSON emitted by `portsleuth doctor --format json`.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "os",
+    "python",
+    "is_admin_or_root",
+    "raw_icmp_available",
+    "raw_tcp_socket_creatable",
+    "raw_tcp_syn_likely_supported",
+    "packet_capture_tools",
+    "fixture_ports",
+    "default_timeout",
+    "default_concurrency",
+    "default_rate_limit",
+    "tls_cert_fields_available",
+    "notes"
+  ],
+  "properties": {
+    "os": {
+      "type": "string"
+    },
+    "python": {
+      "type": "string"
+    },
+    "is_admin_or_root": {
+      "type": "boolean"
+    },
+    "raw_icmp_available": {
+      "type": "boolean"
+    },
+    "raw_tcp_socket_creatable": {
+      "type": "boolean"
+    },
+    "raw_tcp_syn_likely_supported": {
+      "type": "boolean"
+    },
+    "packet_capture_tools": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "fixture_ports": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "port",
+          "label",
+          "status"
+        ],
+        "properties": {
+          "port": {
+            "$ref": "common-defs.schema.json#/$defs/port"
+          },
+          "label": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "default_timeout": {
+      "type": "number",
+      "exclusiveMinimum": 0
+    },
+    "default_concurrency": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "default_rate_limit": {
+      "type": "number",
+      "minimum": 0
+    },
+    "tls_cert_fields_available": {
+      "type": "boolean"
+    },
+    "notes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

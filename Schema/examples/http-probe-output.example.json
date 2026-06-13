@@ -1,0 +1,19 @@
+[
+  {
+    "target": "127.0.0.1",
+    "address": "127.0.0.1",
+    "state": "http_detected",
+    "method": "HEAD",
+    "path": "/",
+    "http_version": "HTTP/1.0",
+    "status_code": 200,
+    "reason": "OK",
+    "headers": {
+      "Server": "WSGIServer/0.2"
+    },
+    "server": "WSGIServer/0.2",
+    "location": null,
+    "raw_preview": null,
+    "error": null
+  }
+]

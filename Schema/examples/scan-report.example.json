@@ -1,0 +1,44 @@
+{
+  "target_expression": "127.0.0.1",
+  "ports": [
+    9089,
+    9090,
+    9091
+  ],
+  "options": {
+    "timeout": 0.75,
+    "concurrency": 100,
+    "rate_limit": 200.0,
+    "technique": "connect",
+    "probe": true,
+    "probe_insecure": false
+  },
+  "authorization_summary": {
+    "authorized": false,
+    "reason": null,
+    "requires_audit": false,
+    "categories": [
+      "loopback"
+    ]
+  },
+  "started_at": "2026-06-12T12:00:00+00:00",
+  "finished_at": "2026-06-12T12:00:00.100000+00:00",
+  "duration_ms": 100.0,
+  "results": [
+    {
+      "target": "127.0.0.1",
+      "address": "127.0.0.1",
+      "port": 9090,
+      "state": "open",
+      "technique": "connect",
+      "service": "app",
+      "service_confidence": "common-port",
+      "latency_ms": 1.2,
+      "reason": "connect succeeded",
+      "banner": "portsleuth fixture",
+      "http": null,
+      "tls": null,
+      "error": null
+    }
+  ]
+}
