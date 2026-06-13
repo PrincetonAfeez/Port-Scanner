@@ -1,0 +1,11 @@
+Example output from: portsleuth benchmark 127.0.0.1 --ports 1-100
+
+TECHNIQUE  PORTS  CONCURRENCY  TIMEOUT  DURATION_MS  OPEN  CLOSED  FILTERED  UNREACH  DENIED  UNKNOWN  ERROR
+sync       100    1            0.75     842.1        0     12      88        0        0       0        0
+threaded   100    100          0.75     156.3        0     12      88        0        0       0        0
+asyncio    100    100          0.75     148.7        0     12      88        0        0       0        0
+
+Notes:
+- Exact counts vary by OS loopback behavior for unbound ports.
+- The async lane uses the same connect classifier as `portsleuth scan`.
+- If interrupted during the async phase, the third row may read `asyncio (partial)`.
