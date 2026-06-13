@@ -1,0 +1,60 @@
+{
+  "authorization_summary": {
+    "authorized": false,
+    "categories": [
+      "loopback"
+    ],
+    "reason": null,
+    "requires_audit": false
+  },
+  "duration_ms": 4.237900000589434,
+  "finished_at": "2026-06-10T04:02:21.296742+00:00",
+  "options": {
+    "concurrency": 100,
+    "probe": true,
+    "probe_insecure": false,
+    "rate_limit": 200.0,
+    "technique": "connect",
+    "timeout": 0.75
+  },
+  "ports": [
+    8080
+  ],
+  "results": [
+    {
+      "address": "127.0.0.1",
+      "banner": null,
+      "error": null,
+      "http": {
+        "error": null,
+        "headers": {
+          "content-length": "139",
+          "content-type": "text/plain; charset=utf-8",
+          "date": "Wed, 10 Jun 2026 04:02:21 GMT",
+          "server": "WSGIServer/0.2 CPython/3.14.4",
+          "x-portsleuth-lab": "wsgi"
+        },
+        "http_version": "HTTP/1.0",
+        "location": null,
+        "method": "HEAD",
+        "path": "/",
+        "raw_preview": "HTTP/1.0 200 OK\r\nDate: Wed, 10 Jun 2026 04:02:21 GMT\r\nServer: WSGIServer/0.2 CPython/3.14.4\r\nContent-Type: text/plain; charset=utf-8\r\nContent-Length: 139\r\nX-Portsleuth-Lab: wsgi\r\n\r\n",
+        "reason": "OK",
+        "server": "WSGIServer/0.2 CPython/3.14.4",
+        "state": "http_detected",
+        "status_code": 200
+      },
+      "latency_ms": 0.5899999996472616,
+      "port": 8080,
+      "reason": "TCP connection succeeded",
+      "service": "http-proxy",
+      "service_confidence": "high",
+      "state": "open",
+      "target": "127.0.0.1",
+      "technique": "connect",
+      "tls": null
+    }
+  ],
+  "started_at": "2026-06-10T04:02:21.292476+00:00",
+  "target_expression": "127.0.0.1"
+}
