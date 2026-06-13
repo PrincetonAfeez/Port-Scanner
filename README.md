@@ -133,7 +133,7 @@ portsleuth scan 192.168.1.10 --ports 22,80,443 --authorized --reason "home lab"
 | `classify.py` / dedicated async engine module | Absorbed into `scan/connect.py` + `scan/classify.py` |
 | Django dashboard, nmap comparison | Stretch / out of scope |
 
-See `docs/adr/` for design decisions. Defense artifacts: [`docs/demo-script.md`](docs/demo-script.md), [`docs/protocol-mastery-checklist.md`](docs/protocol-mastery-checklist.md), [`docs/rubric.md`](docs/rubric.md), [`docs/platform-notes.md`](docs/platform-notes.md).
+See `docs/adr/` for design decisions (async concurrency and rate limiting: [ADR 0007](docs/adr/0007-async-concurrency-rate-limiting.md)). Defense artifacts: [`docs/demo-script.md`](docs/demo-script.md), [`docs/protocol-mastery-checklist.md`](docs/protocol-mastery-checklist.md), [`docs/rubric.md`](docs/rubric.md), [`docs/platform-notes.md`](docs/platform-notes.md).
 
 ## Demo Script
 
@@ -172,11 +172,19 @@ Raw packet behavior differs by OS. `portsleuth doctor` reports whether raw ICMP 
 
 ## Development
 
+For reproducible audit and CI runs, install pinned dev dependencies:
+
 ```powershell
-python -m pip install -r requirements-dev.txt
+python -m pip install -r requirements-dev.lock.txt
 python -m pytest
 python -m pytest --cov=portsleuth --cov-report=term-missing
 python -m ruff check src tests
+```
+
+For day-to-day development with flexible lower-bound versions, use `requirements-dev.txt` instead:
+
+```powershell
+python -m pip install -r requirements-dev.txt
 ```
 
 The suite has 200+ unit and integration tests (~92% line coverage on `src/portsleuth`).

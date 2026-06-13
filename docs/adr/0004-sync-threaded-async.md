@@ -20,6 +20,8 @@ for real `scan` runs, where politeness and safety matter more than raw speed.
 
 ## Concurrency safety
 
+See [ADR 0007](0007-async-concurrency-rate-limiting.md) for the dedicated concurrency-model and risk-control record required by the audit framework.
+
 The async engine is deliberately simple, and the failure modes are bounded:
 
 - **Shared state.** The only mutable shared state is the token bucket's token
