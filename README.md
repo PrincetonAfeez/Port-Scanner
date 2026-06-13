@@ -39,10 +39,13 @@ portsleuth scan 127.0.0.1 --ports 8000-8010
 portsleuth scan 127.0.0.1 --ports 80,443,8080 --format json
 portsleuth scan 127.0.0.1 --ports 9090 --probe
 portsleuth probe http 127.0.0.1 --port 8080 --show-preview
+portsleuth probe banner 127.0.0.1 --port 9090
 portsleuth probe tls example.com --port 443 --authorized --reason "owned test target"
 portsleuth discover 127.0.0.1 --authorized --reason "lab sweep"
 portsleuth lab serve-tcp --port 9090 --banner "portsleuth fixture"
 portsleuth lab serve-wsgi --port 8080
+portsleuth lab serve-udp --port 5353
+portsleuth packet demo --protocol all
 portsleuth benchmark 127.0.0.1 --ports 1-1000
 portsleuth report scan-report.json --format table
 portsleuth config
@@ -125,13 +128,16 @@ portsleuth scan 192.168.1.10 --ports 22,80,443 --authorized --reason "home lab"
 | Authorization gate, audit JSONL (Unix fcntl lock; in-process lock on Windows) | Implemented |
 | HTTP/TLS probing, WSGI lab, TCP-ping discovery | Implemented |
 | Packet header pack/unpack evidence (`portsleuth packet demo`) | Implemented |
+| `probe banner`, `lab serve-udp`, defense docs under `docs/` | Implemented |
 | Raw SYN scan, UDP scan, ICMP sweep | Planned (capability-gated; see ADRs) |
 | `classify.py` / dedicated async engine module | Absorbed into `scan/connect.py` + `scan/classify.py` |
 | Django dashboard, nmap comparison | Stretch / out of scope |
 
-See `docs/adr/` for design decisions.
+See `docs/adr/` for design decisions. Defense artifacts: [`docs/demo-script.md`](docs/demo-script.md), [`docs/protocol-mastery-checklist.md`](docs/protocol-mastery-checklist.md), [`docs/rubric.md`](docs/rubric.md), [`docs/platform-notes.md`](docs/platform-notes.md).
 
 ## Demo Script
+
+See [`docs/demo-script.md`](docs/demo-script.md) for the full pass/fail demo. Quick version:
 
 Terminal 1:
 
@@ -160,7 +166,7 @@ portsleuth benchmark 127.0.0.1 --ports 1-100
 
 ## Platform Notes
 
-The dependable scanner is the TCP connect scanner, which uses normal sockets and works without special privileges on typical Windows, macOS, Linux, and WSL setups.
+See [`docs/platform-notes.md`](docs/platform-notes.md). Summary:
 
 Raw packet behavior differs by OS. `portsleuth doctor` reports whether raw ICMP and raw TCP sockets can be created. The packet header modules are included as protocol evidence; raw SYN scanning is intentionally reported as unsupported by the portable scanner path unless a future privileged implementation is added.
 
@@ -169,10 +175,19 @@ Raw packet behavior differs by OS. `portsleuth doctor` reports whether raw ICMP 
 ```powershell
 python -m pip install -r requirements-dev.txt
 python -m pytest
+python -m pytest --cov=portsleuth --cov-report=term-missing
 python -m ruff check src tests
 ```
 
-The integration tests only use loopback fixtures and do not scan public hosts.
+The suite has 200+ unit and integration tests (~92% line coverage on `src/portsleuth`).
+Tests use loopback fixtures only and do not scan public hosts.
+
+Optional extras:
+
+```powershell
+python -m pip install -r requirements-tls.txt   # certificate field extraction for probe tls --insecure
+```
+
 Privileged raw-socket tests live in `tests/privileged/` and only run when
 `PORTSLEUTH_PRIVILEGED_TESTS=1` is set and the platform supports raw sockets.
 
